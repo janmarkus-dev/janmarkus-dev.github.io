@@ -5,7 +5,7 @@ body, html {
     height: 100%;
 }
 .hero-image {
-  background-image: url("photographer.jpg")
+  background-image: photographer.jpg
     
   height: 40%;
 

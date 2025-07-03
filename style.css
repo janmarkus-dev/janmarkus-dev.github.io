@@ -10,7 +10,7 @@ body, html {
 }
 
 .hero-image {
-  background-image: url("hero.jpg");
+  background-image: url("hero.webp");
   height: 40%;
   background-position: center;
   background-repeat: no-repeat;

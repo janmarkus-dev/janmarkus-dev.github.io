@@ -27,14 +27,14 @@ body, html {
 
 h1 {
   font-size: 6em;
+  margin-top: 1.5vw;
+  margin-bottom: 1.5vw;
 }
-
 h2 {
-  font-size: 3em;
-
+  font-size: 2.5em;
 }
 h3 {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 nav {

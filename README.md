@@ -5,6 +5,8 @@
 - allow blogging
 - no JS
 - Video embeds
-- 100 performance, 100 accessibility, >97 site performance, 100 SEO
+### Performance
+
+- >98 Desktop performance, >90 Mobile performance, 100 accessibility, 100 site performance, 100 SEO
 > for now every odd commit will be focused on adding content while every even commit will focus on optimalization. 
 ## Licensed under MIT

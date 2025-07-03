@@ -24,4 +24,13 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+
+h1 {
+ font-size: 6em;
+}
+h2 {
+ font-size 4em;
+}
+h3 {
+ font-size 2em;
 }

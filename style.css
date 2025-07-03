@@ -1,14 +1,16 @@
 * {
 text-align: center;
+color: white;
+background-color: black;
+
 } 
 body, html {
     height: 100%;
+
 }
 .hero-image {
-  background-image: background-image: url("photographer.jpg");
-   
+  background-image: url("hero.jpg");
   height: 40%;
-
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

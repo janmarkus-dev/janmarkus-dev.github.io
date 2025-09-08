@@ -5,9 +5,17 @@
 } 
 
 .content {
-  max-width: 500px;
+  width: 100%;
   margin: auto;
 }
+
+@media (min-width: 768px) {
+  .content {
+    width: 90%;
+    max-width: none;
+  }
+}
+
 
 body, html {
   height: 100%;

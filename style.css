@@ -41,6 +41,7 @@ nav {
   padding: 15px 0;
   display: flex;
   justify-content: space-evenly;
+  transform: translate(-2%, 0%);
 }
 
 a {

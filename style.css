@@ -3,12 +3,10 @@
   color: white;
   font-family: 'Roboto', sans-serif;
 } 
-
 body, html {
   height: 100%;
   background-color: black;
 }
-
 .hero-image {
   background-image: url("hero.webp");
   height: 40%;
@@ -17,14 +15,12 @@ body, html {
   background-size: cover;
   position: relative;
 }
-
 .hero-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 h1 {
   font-size: 6em;
   margin-top: 1.5vw;
@@ -36,20 +32,17 @@ h2 {
 h3 {
   font-size: 1.5em;
 }
-
 nav {
   padding: 15px 0;
   display: flex;
   justify-content: space-evenly;
-  transform: translate(-2%, 0%);
+  transform: translate(-1.25%, 0%);
 }
-
 a {
   text-decoration: none;
   font-size: 1.2em;
   letter-spacing: 1px;
 }
-
 a:hover {
   color: #ccc;
 }

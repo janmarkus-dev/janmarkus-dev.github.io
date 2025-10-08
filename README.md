@@ -1,3 +1,3 @@
 # Jan Markus' personal site
 
-## Licensed under MIT
+## Avalible under public domain

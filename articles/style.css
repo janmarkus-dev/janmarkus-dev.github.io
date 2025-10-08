@@ -1,6 +1,5 @@
-/* Base styles */
 :root {
-  --md-sys-color-background: #121212;
+  --md-sys-color-background: #090909;
   --md-sys-color-on-background: #e6e6e6;
   --md-sys-color-surface: #1e1e1e;
   --md-sys-color-on-surface: #ffffff;
@@ -8,7 +7,6 @@
   --md-sys-color-primary-container: #4a1031;
   --md-sys-color-outline: #3a3a3a;
 }
-
 body {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
@@ -16,16 +14,12 @@ body {
   font-family: system-ui, sans-serif;
   line-height: 1.6;
 }
-
-/* Headings */
 h1, h2, h3, h4, h5, h6 {
   text-align: center;
   color: var(--md-sys-color-primary);
   margin: 1.5rem 0 1rem;
   font-weight: 600;
 }
-
-/* Tables */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -35,24 +29,19 @@ table {
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
   margin: 1.5rem 0;
 }
-
 table th, table td {
   padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 1px solid var(--md-sys-color-outline);
 }
-
 table th {
   background-color: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-primary);
   font-weight: 600;
 }
-
 table tr:last-child td {
   border-bottom: none;
 }
-
-/* Images */
 img {
   max-width: 90%;
   height: auto;
@@ -61,13 +50,10 @@ img {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
-
-/* Links */
 a {
   color: var(--md-sys-color-primary);
   text-decoration: none;
 }
-
 a:hover {
   text-decoration: underline;
 }

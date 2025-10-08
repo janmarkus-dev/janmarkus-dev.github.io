@@ -1,3 +1,13 @@
+:root {
+  --md-sys-color-background: #090909;
+  --md-sys-color-on-background: #e6e6e6;
+  --md-sys-color-surface: #1e1e1e;
+  --md-sys-color-on-surface: #ffffff;
+  --md-sys-color-primary: #ff7ab8;
+  --md-sys-color-primary-container: #4a1031;
+  --md-sys-color-outline: #3a3a3a;
+}
+
 * {
   text-align: center;
   color: white;
@@ -5,7 +15,7 @@
 } 
 body, html {
   height: 100%;
-  background-color: black;
+  background-color: var(--md-sys-color-background);
 }
 .hero-image {
   background-image: url("hero.webp");
@@ -39,10 +49,9 @@ nav {
   transform: translate(-1.25%, 0%);
 }
 a {
+  color: var(--md-sys-color-primary);
   text-decoration: none;
-  font-size: 1.2em;
-  letter-spacing: 1px;
 }
 a:hover {
-  color: #ccc;
+  text-decoration: underline;
 }

@@ -1,3 +1,3 @@
 # Jan Markus' personal site
 
-## Avalible under public domain
+## Available under Public Domain - Do whatever you want.

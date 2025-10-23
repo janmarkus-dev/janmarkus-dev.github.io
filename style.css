@@ -19,7 +19,8 @@ body, html {
 }
 .hero-image {
   background-image: url("hero.webp");
-  height: 40%;
+  /* Use viewport-based height so it scales predictably on different screens */
+  min-height: 40vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -30,18 +31,29 @@ body, html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  max-width: 95vw;
+  padding: 0 2vw;
+  box-sizing: border-box;
 }
+
 h1 {
-  font-size: 6em;
+  font-size: clamp(2rem, 8vw, 6rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
   margin-top: 1.5vw;
   margin-bottom: 1.5vw;
+  line-height: 1;
 }
+
 h2 {
-  font-size: 2.5em;
+  font-size: clamp(1.25rem, 4vw, 2.5rem);
 }
 h3 {
-  font-size: 1.5em;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
 }
+
 nav {
   padding: 15px 0;
   display: flex;

@@ -1,11 +1,10 @@
 :root {
-  --md-sys-color-background: #090909;
+  --md-sys-color-background: #1c0911;
   --md-sys-color-on-background: #e6e6e6;
   --md-sys-color-surface: #1e1e1e;
   --md-sys-color-on-surface: #ffffff;
   --md-sys-color-primary: #ff7ab8;
   --md-sys-color-primary-container: #4a1031;
-  --md-sys-color-outline: #3a3a3a;
 }
 
 * {

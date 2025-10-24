@@ -36,18 +36,20 @@ body, html {
 }
 
 h1 {
-  font-size: 50vw;
+  font-size: clamp(4rem, 2.875rem + 5.625vw, 9.625rem);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;
-  margin-top: 1.5vw;
-  margin-bottom: 1.5vw;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
   line-height: 1;
 }
 
 h2 {
-  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-size: clamp(1.1875rem, 0.585rem + 3.0125vw, 4.2rem);
+  margin-top: 0vw;
+  margin-bottom: 1vw;
 }
 h3 {
   font-size: 1.5rem;

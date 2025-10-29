@@ -14,7 +14,7 @@ body {
   font-family: system-ui, sans-serif;
   line-height: 1.6;
 }
-code {
+pre {
   background-color: var(--md-sys-color-primary-container);
   border: 2px solid var(--md-sys-color-primary);
   border-radius: 10px;

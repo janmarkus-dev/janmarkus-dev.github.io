@@ -15,9 +15,9 @@ body {
   line-height: 1.6;
 }
 code, pre {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background-color: --md-sys-color-primary-container;
+  border: 2px solid --md-sys-color-primary;
+  border-radius: 10px;
   padding: 0.5em;
 }
 

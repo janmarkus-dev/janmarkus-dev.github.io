@@ -1,0 +1,15 @@
+BEGIN:VCARD
+VERSION:4.0
+FN:Ján Markuš
+N:Markuš;Ján;;;
+GENDER:M
+BDAY:2008-08-27
+EMAIL;TYPE=home:jan@janmark.us
+EMAIL;TYPE=work:business@janmark.us
+TEL;TYPE=cell;VALUE=uri:tel:+421949610110
+ADR;TYPE=home:;;Brečtanová 2866/3;Bratislava;;83101;Slovakia
+TITLE:CTO
+ORG:House of Comms s.r.o.
+URL;TYPE=linkedin:https://www.linkedin.com/in/j%C3%A1n-marku%C5%A1-41271b378
+URL;TYPE=home:https://janmark.us
+END:VCARD

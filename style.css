@@ -6,7 +6,6 @@
   --md-sys-color-primary: #ff7ab8;
   --md-sys-color-primary-container: #4a1031;
 }
-
 * {
   text-align: center;
   color: white;
@@ -18,7 +17,6 @@ body, html {
 }
 .hero-image {
   background-image: url("hero.webp");
-  /* Use viewport-based height so it scales predictably on different screens */
   min-height: 40vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -45,21 +43,18 @@ h1 {
   margin-bottom: 1vw;
   line-height: 1;
 }
-
 h2 {
   font-size: clamp(1.1875rem, 0.585rem + 3.0125vw, 4.2rem);
   margin-top: 0vw;
   margin-bottom: 1vw;
 }
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
-
 nav {
-  padding: 15px 0;
+  padding: 10px 0;
   display: flex;
   justify-content: space-evenly;
-  transform: translate(-1.25%, 0%);
 }
 a {
   color: var(--md-sys-color-primary);

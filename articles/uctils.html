@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uctils: Ultra-Minimal Assembly Utilities - Ján Markuš</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Mono:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --md-sys-color-background: #090909;
+            --md-sys-color-on-background: #e6e6e6;
+            --md-sys-color-surface: #1e1e1e;
+            --md-sys-color-on-surface: #ffffff;
+            --md-sys-color-primary: #ff7ab8;
+            --md-sys-color-primary-container: #4a1031;
+            --md-sys-color-outline: #3a3a3a;
+        }
+        
+        body {
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
+            font-family: 'Space Mono', monospace;
+            line-height: 1.7;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 30px;
+            font-size: 15px;
+        }
+        
+        a {
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            border-bottom-color: var(--md-sys-color-primary);
+        }
+        
+        .header {
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--md-sys-color-outline);
+            padding-bottom: 20px;
+        }
+        
+        .back-link {
+            color: var(--md-sys-color-on-background);
+            opacity: 0.6;
+            font-size: 13px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 15px;
+            color: var(--md-sys-color-primary);
+            text-align: center;
+        }
+        
+        .meta {
+            color: var(--md-sys-color-on-background);
+            opacity: 0.6;
+            font-size: 13px;
+            font-family: 'IBM Plex Mono', monospace;
+            text-align: center;
+        }
+        
+        .content {
+            margin-top: 40px;
+        }
+        
+        .content p {
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 40px 0 20px;
+            color: var(--md-sys-color-primary);
+            text-align: center;
+        }
+        
+        .terminal-block {
+            background-color: var(--md-sys-color-primary-container);
+            border: 2px solid var(--md-sys-color-primary);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            margin: 25px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .terminal-block::before {
+            content: '$ ';
+            color: var(--md-sys-color-primary);
+        }
+        
+        .program-list {
+            list-style: none;
+            margin: 20px 0;
+            background-color: var(--md-sys-color-surface);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+        
+        .program-list li {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--md-sys-color-outline);
+        }
+        
+        .program-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .program-name {
+            color: var(--md-sys-color-primary);
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 600;
+        }
+        
+        .program-desc {
+            color: var(--md-sys-color-on-background);
+            opacity: 0.7;
+            font-size: 13px;
+            margin-left: 20px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin: 30px 0;
+            padding: 25px;
+            background-color: var(--md-sys-color-surface);
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            border-left: 4px solid var(--md-sys-color-primary);
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--md-sys-color-primary);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--md-sys-color-on-background);
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-box {
+            margin: 40px 0;
+            padding: 25px;
+            background-color: var(--md-sys-color-surface);
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            border-left: 4px solid var(--md-sys-color-primary);
+        }
+        
+        .cta-box a {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        code {
+            background-color: var(--md-sys-color-primary-container);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            color: var(--md-sys-color-primary);
+        }
+        
+        .footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid var(--md-sys-color-outline);
+            color: var(--md-sys-color-on-background);
+            opacity: 0.6;
+            font-size: 13px;
+            text-align: center;
+        }
+        
+        @media (max-width: 640px) {
+            body {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        <h1>uctils: Ultra-Minimal Assembly Utilities</h1>
+        <div class="meta">Jan 11, 2026 • Low-level Linux • Assembly</div>
+    </div>
+    
+    <div class="content">
+        <p>Building software from the ground up means questioning every dependency, every abstraction layer, every byte of bloat. <strong>uctils</strong> is my answer to the pervasive complexity in modern Unix utilities—a collection of hand-crafted assembly and C programs that do one thing well, with minimal overhead.</p>
+        
+        <p>This project emerged from work on DuskOS, where every kilobyte matters. When you're building an operating system from scratch, you can't afford the luxury of GNU coreutils or even BusyBox. You need tools that are small, fast, and transparent.</p>
+        
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-value">97.9%</span>
+                <span class="stat-label">Assembly</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">7</span>
+                <span class="stat-label">Core Utils</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">x86_64</span>
+                <span class="stat-label">Architecture</span>
+            </div>
+        </div>
+        
+        <h2>Philosophy</h2>
+        
+        <p>Traditional Unix utilities have evolved over decades, accumulating features, compatibility layers, and dependencies. They're powerful but opaque. uctils strips everything back to the essentials—direct syscalls, minimal logic, maximum clarity.</p>
+        
+        <p>Each utility is written in x86_64 assembly for Linux 3.0+, targeting raw performance and pedagogical value. If you want to understand what <code>echo</code> or <code>cp</code> actually do at the kernel level, read the source. It's all there, unobscured by layers of abstraction.</p>
+        
+        <h2>Current Programs</h2>
+        
+        <ul class="program-list">
+            <li>
+                <span class="program-name">shout</span>
+                <div class="program-desc">Echo text to stdout (like echo)</div>
+            </li>
+            <li>
+                <span class="program-name">spew</span>
+                <div class="program-desc">Output file contents (like cat)</div>
+            </li>
+            <li>
+                <span class="program-name">copy</span>
+                <div class="program-desc">Copy files (like cp)</div>
+            </li>
+            <li>
+                <span class="program-name">move</span>
+                <div class="program-desc">Move/rename files (like mv)</div>
+            </li>
+            <li>
+                <span class="program-name">destroy</span>
+                <div class="program-desc">Remove files (like rm)</div>
+            </li>
+            <li>
+                <span class="program-name">affect</span>
+                <div class="program-desc">Modify file permissions (like chmod)</div>
+            </li>
+            <li>
+                <span class="program-name">inhumate</span>
+                <div class="program-desc">Create directories (like mkdir)</div>
+            </li>
+        </ul>
+        
+        <h2>Building</h2>
+        
+        <p>The build process is deliberately simple. Each utility can be assembled independently with NASM and linked with ld. No build systems, no autotools, no CMake—just direct invocation of the assembler.</p>
+        
+        <div class="terminal-block">./build-asm.sh program-name</div>
+        
+        <p>The resulting binaries are tiny. Where a typical coreutils <code>echo</code> might be 30-40KB, <code>shout</code> compiles to under 2KB. This isn't just academic—it matters for embedded systems, minimal containers, and understanding system behavior.</p>
+        
+        <h2>What's Next</h2>
+        
+        <p>The roadmap includes essential utilities like <code>goto</code> (cd), <code>contents</code> (ls), and <code>vte</code> (a minimal visual text editor). Beyond core utilities, I'm exploring networking tools like <code>get</code> (wget/curl) and shell implementations.</p>
+        
+        <p>This isn't about replacing modern tools for daily use—it's about understanding what those tools do and proving you can build them from first principles. It's educational infrastructure that doubles as production-ready code for constrained environments.</p>
+        
+        <div class="cta-box">
+            <p>View source, contribute, or fork the project:<br>
+            <a href="https://github.com/janmarkus-dev/uctils">github.com/janmarkus-dev/uctils</a></p>
+        </div>
+        
+        <p>Released under the Unlicense—truly public domain. Use it, modify it, learn from it.</p>
+    </div>
+    
+    <div class="footer">
+        Made with 🖤 by me & opensource AI, with no JS and tracking.
+    </div>
+</body>
+</html>

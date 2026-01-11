@@ -225,9 +225,7 @@
 </head>
 <body>
     <div class="header">
-        <a href="../index.html" class="back-link">← Back to Home</a>
         <h1>uctils: Ultra-Minimal Assembly Utilities</h1>
-        <div class="meta">Jan 11, 2026 • Low-level Linux • Assembly</div>
     </div>
     
     <div class="content">
@@ -254,7 +252,7 @@
         
         <p>Traditional Unix utilities have evolved over decades, accumulating features, compatibility layers, and dependencies. They're powerful but opaque. uctils strips everything back to the essentials—direct syscalls, minimal logic, maximum clarity.</p>
         
-        <p>Each utility is written in x86_64 assembly for Linux 3.0+, targeting raw performance and pedagogical value. If you want to understand what <code>echo</code> or <code>cp</code> actually do at the kernel level, read the source. It's all there, unobscured by layers of abstraction.</p>
+        <p>Each utility is written in x86_64 assembly for Linux 3.0+, targeting raw performance. If you want to understand what <code>echo</code> or <code>cp</code> actually do at the kernel level, read the source. It's all there, unobscured by layers of abstraction.</p>
         
         <h2>Current Programs</h2>
         
@@ -281,11 +279,11 @@
             </li>
             <li>
                 <span class="program-name">affect</span>
-                <div class="program-desc">Modify file permissions (like chmod)</div>
+                <div class="program-desc">Change File timestamp, create file if it doesn't exit (like touch)</div>
             </li>
             <li>
                 <span class="program-name">inhumate</span>
-                <div class="program-desc">Create directories (like mkdir)</div>
+                <div class="program-desc">Kill a process(like kill)</div>
             </li>
         </ul>
         
@@ -295,16 +293,15 @@
         
         <div class="terminal-block">./build-asm.sh program-name</div>
         
-        <p>The resulting binaries are tiny. Where a typical coreutils <code>echo</code> might be 30-40KB, <code>shout</code> compiles to under 2KB. This isn't just academic—it matters for embedded systems, minimal containers, and understanding system behavior.</p>
+        <p>The resulting binaries are tiny. Where a typical coreutils <code>echo</code> might be 30-40KB, <code>shout</code> compiles to under 1KB. This isn't just academic—it matters for embedded systems, minimal containers, and understanding system behavior.</p>
         
-        <h2>What's Next</h2>
+        <h2>What's Next</h2>Create directories 
         
-        <p>The roadmap includes essential utilities like <code>goto</code> (cd), <code>contents</code> (ls), and <code>vte</code> (a minimal visual text editor). Beyond core utilities, I'm exploring networking tools like <code>get</code> (wget/curl) and shell implementations.</p>
-        
-        <p>This isn't about replacing modern tools for daily use—it's about understanding what those tools do and proving you can build them from first principles. It's educational infrastructure that doubles as production-ready code for constrained environments.</p>
+        <p>The roadmap includes essential utilities like <code>goto</code> (cd), <code>contents</code> (ls), and <code>vte</code> (a minimal visual text editor). Beyond core utilities, I'm exploring networking tools like <code>get</code> (wget/curl) and a shell implementations.</p>
+        <p>Ultimately, these will all make their way to my independent, ultra minimal distro, Dusk.</p>
         
         <div class="cta-box">
-            <p>View source, contribute, or fork the project:<br>
+            <p>View source:<br>
             <a href="https://github.com/janmarkus-dev/uctils">github.com/janmarkus-dev/uctils</a></p>
         </div>
         

@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JERUBBAAL | STRATEGIC DEFENSE INITIATIVE</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;900&family=Oswald:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CORE CONFIG --- */
+        :root {
+            --c-void: #030407;
+            --c-midnight: #0a0f1c;
+            --c-eu-blue: #003399;
+            --c-eu-gold: #ffcc00;
+            --c-alert: #ff3333;
+            --c-tech: #00f0ff;
+            --c-text-muted: #64748b;
+            
+            --f-head: 'Oswald', sans-serif;
+            --f-body: 'Inter', sans-serif;
+            --f-mono: 'Share Tech Mono', monospace;
+            
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--c-void);
+            color: #ecf0f1;
+            font-family: var(--f-body);
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+        /* --- UTILITIES --- */
+        .mono { font-family: var(--f-mono); text-transform: uppercase; letter-spacing: 1px; }
+        .gold { color: var(--c-eu-gold); }
+        .blue { color: var(--c-tech); text-shadow: 0 0 10px rgba(0,240,255,0.5); }
+        
+        /* --- BACK BUTTON --- */
+        .back-nav {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+        
+        .back-nav a {
+            text-decoration: none;
+            color: white;
+            font-family: var(--f-mono);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .back-nav a:hover { opacity: 1; }
+
+        /* --- PRELOADER --- */
+        #boot-sequence {
+            position: fixed;
+            inset: 0;
+            background: black;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--f-mono);
+            color: var(--c-eu-gold);
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .boot-log {
+            position: absolute;
+            top: 20px; left: 20px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            display: grid;
+            gap: 5px;
+        }
+
+        .loader-bar {
+            width: 300px;
+            height: 4px;
+            background: #111;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        
+        .loader-progress {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 100%;
+            background: var(--c-eu-blue);
+            transform: translateX(-100%);
+            animation: load 3s var(--ease-out-expo) forwards;
+            box-shadow: 0 0 20px var(--c-eu-blue);
+        }
+
+        /* --- GLITCH TEXT --- */
+        .glitch {
+            position: relative;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--c-void);
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            background: var(--c-void);
+            clip-path: inset(10% 0 80% 0);
+            animation: glitch-anim-1 5s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 blue;
+            background: var(--c-void);
+            clip-path: inset(80% 0 10% 0);
+            animation: glitch-anim-2 6s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); }
+            20% { clip-path: inset(60% 0 10% 0); }
+            40% { clip-path: inset(10% 0 50% 0); }
+            60% { clip-path: inset(90% 0 5% 0); }
+            80% { clip-path: inset(30% 0 20% 0); }
+            100% { clip-path: inset(70% 0 20% 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); }
+            20% { clip-path: inset(30% 0 10% 0); }
+            40% { clip-path: inset(80% 0 20% 0); }
+            60% { clip-path: inset(10% 0 80% 0); }
+            80% { clip-path: inset(50% 0 30% 0); }
+            100% { clip-path: inset(90% 0 10% 0); }
+        }
+
+        /* --- HERO SECTION with Parallax --- */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0a1120 0%, #000 70%);
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        .video-bg { display: none; } /* Disabled old bg */
+        
+        .grid-floor {
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 51, 153, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 51, 153, 0.4) 1px, transparent 1px);
+            background-size: 80px 80px;
+            transform: rotateX(60deg) translateY(0);
+            transform-origin: 50% 0;
+            animation: grid-scroll 20s linear infinite;
+            z-index: 0;
+            mask-image: linear-gradient(to top, black, transparent 70%);
+            opacity: 0.5;
+        }
+        
+        @keyframes grid-scroll { 0% { transform: rotateX(60deg) translateY(0); } 100% { transform: rotateX(60deg) translateY(50px); } }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            mix-blend-mode: hard-light;
+        }
+
+        h1 {
+            font-family: var(--f-head);
+            font-size: 12vw;
+            line-height: 0.9;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255,255,255,0.2);
+            position: relative;
+            letter-spacing: -5px;
+        }
+        
+        h1::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0; top: 0;
+            color: white;
+            width: 0%;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: width 2s var(--ease-out-expo);
+            border-right: 4px solid var(--c-eu-blue);
+        }
+        
+        body.loaded h1::before { width: 100%; }
+
+        .hero p {
+            font-family: var(--f-mono);
+            color: var(--c-eu-gold);
+            margin-top: 2rem;
+            letter-spacing: 4px;
+            font-size: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s 1s, transform 1s 1s;
+            display: inline-block;
+            max-width: 90vw;
+        }
+        
+        body.loaded .hero p { opacity: 1; transform: translateY(0); }
+
+        /* --- SCROLLYTELLING SECTION --- */
+        .scrolly-container {
+            position: relative;
+            display: flex;
+        }
+        
+        .sticky-visual {
+            position: sticky;
+            top: 0;
+            width: 50vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--c-void);
+            overflow: hidden;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #scrolly-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        
+        .scroll-content {
+            width: 50vw;
+            background: var(--c-void);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8vw;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: opacity 0.5s;
+            opacity: 0.3;
+            background: linear-gradient(to right, transparent, rgba(0,0,0,0.5));
+            border-left: 1px solid transparent;
+            transition: all 0.5s;
+        }
+        
+        .step.active { 
+            opacity: 1; 
+            background: linear-gradient(to right, rgba(0, 51, 153, 0.1), transparent);
+            border-left: 4px solid var(--c-eu-blue);
+        }
+        
+        .step h2 {
+            font-family: var(--f-head);
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        .step p {
+            color: var(--c-text-muted);
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Visualization Elements */
+        .viz-core {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            transition: transform 1s var(--ease-out-expo);
+            z-index: 10;
+        }
+        
+        .ring {
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 1s;
+        }
+        
+        .ring::after {
+            content: '';
+            position: absolute;
+            top: -5px; left: 50%; transform: translateX(-50%);
+            width: 10px; height: 10px;
+            background: var(--c-eu-blue);
+            box-shadow: 0 0 10px var(--c-eu-blue);
+            border-radius: 50%;
+        }
+
+        /* Enhanced Core Animation */
+        .ring-1 { inset: 0px; border-color: var(--c-eu-blue); animation: spin 20s linear infinite; opacity: 0.5; }
+        .ring-2 { inset: 40px; border-style: dashed; animation: spin 15s linear infinite reverse; opacity: 0.3; }
+        .ring-3 { inset: 80px; border-color: var(--c-eu-gold); animation: spin 10s linear infinite; border-width: 1px; }
+
+        .viz-core::before {
+            content: '';
+            position: absolute;
+            inset: 120px;
+            background: radial-gradient(circle, var(--c-eu-blue), transparent);
+            opacity: 0;
+            border-radius: 50%;
+            filter: blur(20px);
+            transition: opacity 1s;
+        }
+        
+        /* State Transformations */
+        [data-state="0"] .viz-core { transform: scale(0.5); opacity: 0.2; }
+        
+        /* State 1: Integration (Blue Net) */
+        [data-state="1"] .viz-core { transform: scale(1); opacity: 1; }
+        [data-state="1"] .ring-1 { box-shadow: 0 0 30px rgba(0, 51, 153, 0.3); border-width: 2px; opacity: 1; }
+        
+        /* State 2: Analysis (Gold Focus) */
+        [data-state="2"] .viz-core { transform: scale(1.2); }
+        [data-state="2"] .ring-1 { border-color: rgba(255,255,255,0.1); opacity: 0.2; }
+        [data-state="2"] .ring-3 { border-width: 4px; box-shadow: 0 0 50px var(--c-eu-gold); border-style: solid; }
+        [data-state="2"] .viz-core::before { opacity: 0.2; background: radial-gradient(circle, var(--c-eu-gold), transparent); }
+
+        /* State 3: Action (Red Alert) */
+        [data-state="3"] .viz-core { transform: scale(0.9); }
+        [data-state="3"] .ring-1 { border-color: var(--c-alert); animation-duration: 2s; border-width: 5px; opacity: 1; box-shadow: 0 0 30px var(--c-alert); }
+        [data-state="3"] .ring-2 { border-color: var(--c-alert); border-style: solid; animation-duration: 3s; }
+        [data-state="3"] .ring-3 { opacity: 0; }
+        [data-state="3"] .viz-core::before { opacity: 0.4; background: radial-gradient(circle, var(--c-alert), transparent); }
+        
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* --- 3D HARDWARE CAROUSEL --- */
+        .hardware-section {
+            padding: 150px 5%;
+            perspective: 2000px;
+            background: radial-gradient(circle at 50% 0%, #0d1220 0%, black 70%);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        
+        .section-title h2 { font-family: var(--f-head); font-size: 3rem; margin-bottom: 10px; }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .iso-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            height: 500px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+            transition: transform 0.1s linear, border-color 0.3s;
+            cursor: crosshair;
+        }
+        
+        .iso-card:hover {
+            border-color: var(--c-eu-gold);
+            z-index: 10;
+        }
+
+        .card-content {
+            position: absolute;
+            inset: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            pointer-events: none;
+            transform: translateZ(40px);
+        }
+        
+        .holo-model {
+            position: absolute;
+            top: 20%; left: 50%;
+            transform: translateX(-50%) translateZ(80px);
+            width: 150px;
+            height: 150px;
+            border: 1px dashed var(--c-tech);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,240,255,0.1), transparent);
+            animation: pulse-holo 2s infinite;
+        }
+        
+        @keyframes pulse-holo { 0% { opacity: 0.5; transform: translateX(-50%) translateZ(80px) scale(0.95); } 100% { opacity: 1; transform: translateX(-50%) translateZ(80px) scale(1.05); } }
+        
+        .iso-card h3 {
+            font-family: var(--f-head);
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .tech-spec {
+            font-family: var(--f-mono);
+            color: var(--c-eu-gold);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .mobile-only { display: none; }
+
+        /* --- CONTACT SECTION --- */
+        .contact-section {
+            padding: 100px 5%;
+            background: linear-gradient(to bottom, #000, #0a0f1c);
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-intel h2 {
+            font-family: var(--f-head);
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .transmission-form {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            position: relative;
+        }
+        
+        .transmission-form::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px;
+            width: 20px; height: 20px;
+            border-top: 2px solid var(--c-eu-gold);
+            border-left: 2px solid var(--c-eu-gold);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: var(--f-mono);
+            font-size: 0.8rem;
+            color: var(--c-eu-gold);
+            margin-bottom: 10px;
+        }
+
+        .cyber-input {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px;
+            color: white;
+            font-family: var(--f-mono);
+            transition: all 0.3s;
+        }
+
+        .cyber-input:focus {
+            border-color: var(--c-eu-blue);
+            outline: none;
+            box-shadow: 0 0 15px rgba(0,240,255,0.1);
+            background: rgba(0,51,153,0.1);
+        }
+
+        .cyber-input option {
+            background-color: var(--c-midnight);
+            color: white;
+        }
+
+        .cyber-btn {
+            background: var(--c-eu-blue);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-family: var(--f-mono);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 0 100%);
+        }
+
+        .cyber-btn:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 0 30px rgba(255,255,255,0.5);
+        }
+
+        /* --- FOOTER --- */
+        .tactical-footer {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 50px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--f-mono);
+            color: var(--c-text-muted);
+            font-size: 0.8rem;
+        }
+        
+        .status-dot {
+            width: 8px; height: 8px;
+            background: #0f0;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            box-shadow: 0 0 5px #0f0;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 900px) {
+            .scrolly-container { flex-direction: column; }
+            .sticky-visual { position: relative; width: 100%; height: 50vh; top: 0; }
+            .scroll-content { width: 100%; }
+            .hero { height: 100vh; }
+            h1 { font-size: 15vw; }
+            .card-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BOOT SEQUENCE LOADER -->
+    <div id="boot-sequence">
+        <div class="boot-log" id="boot-log"></div>
+        <div class="mono" style="font-size: 2rem; margin-bottom: 20px; text-shadow: 0 0 10px var(--c-eu-blue);">INITIALIZING JERUBBAAL</div>
+        <div class="mono" style="color: #666; font-size: 0.8rem;">ESTABLISHING SECURE EUROPEAN DEFENSE LINK</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+        <div class="mono" style="font-size: 0.7rem; margin-top: 10px; opacity: 0.5;">
+            NODE: EU-BRU-492<br>
+            ENCRYPTION: QUANTUM-256
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="back-nav">
+        <a href="../index.html">
+            <span>&lt;</span> TERMINATE SESSION
+        </a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="grid-floor"></div>
+        <div class="hero-content">
+            <h1 class="glitch" data-text="JERUBBAAL">JERUBBAAL</h1>
+            <p class="mono" style="position: relative; overflow: hidden; white-space: nowrap; border-right: 2px solid var(--c-eu-gold); animation: typing 3s steps(40) 1s forwards, blink .5s step-end infinite alternate;">
+                SOVEREIGN EUROPEAN INTELLIGENCE GRID
+            </p>
+        </div>
+    </section>
+
+    <style>
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink { 50% { border-color: transparent } }
+    </style>
+
+    <!-- SCROLLYTELLING -->
+    <section class="scrolly-container">
+        <div class="sticky-visual" data-state="0">
+            <canvas id="scrolly-canvas"></canvas>
+            <div class="viz-core">
+                <div class="ring ring-1"></div>
+                <div class="ring ring-2"></div>
+                <div class="ring ring-3"></div>
+            </div>
+            <!-- Overlay Data -->
+            <div class="mono" style="position: absolute; bottom: 20px; left: 20px; color: var(--c-text-muted); font-size: 0.8rem; z-index: 10;">
+                SYS_STATUS: ONLINE<br>
+                THREAD_COUNT: 84,000
+            </div>
+        </div>
+        
+        <div class="scroll-content">
+            <div class="step" data-step="1">
+                <span class="mono blue">01. INQUIRE</span>
+                <h2>The Neural<br>Backbone</h2>
+                <p>Jerubbaal is not just software. It is the central nervous system of European defense. By fusing data from satellites, ground sensors, and drones, we create a single, immutable source of truth for command decisions.</p>
+            </div>
+            
+            <div class="step" data-step="2">
+                <span class="mono gold">02. ANALYSIS</span>
+                <h2>Intelligent<br>Decisions</h2>
+                <p>With a European database based on the most accurate and timely data, Jerubbaal enables commanders to make informed decisions with unparalleled confidence, with the power of AI.</p>
+            </div>
+            
+            <div class="step" data-step="3">
+                <span class="mono" style="color: var(--c-alert);">03. STRIKE</span>
+                <h2>Strong<br>Response</h2>
+                <p>From threat identification to counter-measure deployment in milliseconds. Jerubbaal automates the tedious tasks, providing commanders with pre-calculated response options that adhere strictly to international law.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HARDWARE -->
+    <section class="hardware-section">
+        <div class="section-title">
+            <span class="mono blue">THE ECOSYSTEM</span>
+            <h2>TACTICAL ASSETS</h2>
+        </div>
+        
+        <div class="card-container">
+            <!-- Card 1 -->
+            <div class="iso-card" data-tilt>
+                <div class="holo-model"></div>
+                <div class="card-content">
+                    <h3>MOSES</h3>
+                    <p style="color: #aaa; margin-bottom: 20px;">The greatest mission and fleet management, for the greatest military.</p>
+                    <div class="tech-spec">
+                        <span>OPS</span>
+                        <span>14 PFLOPS</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="iso-card" data-tilt>
+                <div class="holo-model" style="border-radius: 0; border: 1px solid var(--c-eu-gold);"></div>
+                <div class="card-content">
+                    <h3>HARDWARE SOLUTIONS</h3>
+                    <p style="color: #aaa; margin-bottom: 20px;">Affordable, compatible and secure hardware for any mission.</p>
+                    <div class="tech-spec">
+                        <span>BANDWIDTH</span>
+                        <span>40 TB/S</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="iso-card" data-tilt>
+                <div class="holo-model" style="border-color: var(--c-alert); background: radial-gradient(circle, rgba(255,50,50,0.1), transparent);"></div>
+                <div class="card-content">
+                    <h3>SOLOMON</h3>
+                    <p style="color: #aaa; margin-bottom: 20px;">The mission planner and strategist for the modern European defense sector.</p>
+                    <div class="tech-spec">
+                        <span>ENDURANCE</span>
+                        <span>4 WEEKS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="contact-grid">
+            <div class="contact-intel">
+                <span class="mono blue">SECURE CHANNEL // 2048-BIT</span>
+                <h2>INITIATE UPLINK</h2>
+                <p style="color: #888; margin-bottom: 30px; font-family: var(--f-mono);">
+                    Authorized personnel only. All transmissions are logged and subject to encryption protocols. Response times depend on current status.
+                </p>
+                
+                <div style="display: flex; gap: 20px; font-family: var(--f-mono); font-size: 0.9rem;">
+                    <div style="border: 1px solid  DEFCONrgba(255,255,255,0.1); padding: 20px; flex: 1;">
+                        <span class="gold">HQ LOCATION</span><br><br>
+                        [REDACTED]<br>
+                        Bratislava, SK
+                    </div>
+                </div>
+            </div>
+
+            <div class="transmission-form">
+                <form onsubmit="event.preventDefault(); transmit();">
+                    <div class="form-group">
+                        <label>OPERATIVE ID / EMAIL</label>
+                        <input id="contact-id" type="email" class="cyber-input" placeholder="operative@defense.eu">
+                    </div>
+                    <div class="form-group">
+                        <label>CLEARANCE LEVEL / SUBJECT</label>
+                        <select id="contact-subject" class="cyber-input">
+                            <option>General Inquiry</option>
+                            <option>Partnership Request</option>
+                            <option>Report Vulnerability</option>
+                            <option>Press Clearance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>TRANSMISSION DATA</label>
+                        <textarea id="contact-data" class="cyber-input" rows="5" placeholder="Enter encrypted message..."></textarea>
+                    </div>
+                    <button type="button" class="cyber-btn" onclick="transmit()">TRANSMIT &gt;&gt;</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="tactical-footer">
+        <div>
+            <span class="status-dot"></span> SYSTEM NOMINAL
+        </div>
+        <div>
+            &copy; 2026 JAN MARKUS | DISAVOWED
+        </div>
+        <div>
+            SECURE: TLS 1.3
+        </div>
+    </footer>
+
+    <script>
+        // --- BOOT SEQUENCE ---
+        const bootLog = document.getElementById('boot-log');
+        const logs = [
+            "Initializing kernel...",
+            "Loading EU-DEF-NET drivers...",
+            "Connecting to SAT-492...",
+            "Verifying handshake...",
+            "Quantum keys exchanged.",
+            "Analyzing local threats...",
+            "Firewall active.",
+            "JERUBBAAL SYSTEM READY."
+        ];
+        
+        let logIndex = 0;
+        const logInterval = setInterval(() => {
+            if(logIndex >= logs.length) return clearInterval(logInterval);
+            const div = document.createElement('div');
+            div.textContent = `> ${logs[logIndex]}`;
+            bootLog.appendChild(div);
+            logIndex++;
+        }, 300);
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('boot-sequence').style.opacity = '0';
+                document.getElementById('boot-sequence').style.pointerEvents = 'none';
+                document.body.classList.add('loaded');
+                initParticles(); // Start particles after load
+            }, 3500); // Longer boot for effect
+        });
+
+        // --- HERO PARTICLE NETWORK ---
+        function initParticles() {
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            let width, height;
+            let particles = [];
+            
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2;
+                }
+                
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+                
+                draw() {
+                    ctx.fillStyle = 'rgba(0, 51, 153, 0.8)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            for(let i=0; i<100; i++) particles.push(new Particle());
+            
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                
+                // Draw Connections
+                ctx.lineWidth = 0.5;
+                for(let i=0; i<particles.length; i++) {
+                    let p1 = particles[i];
+                    p1.update();
+                    p1.draw();
+                    
+                    for(let j=i+1; j<particles.length; j++) {
+                        let p2 = particles[j];
+                        let dx = p1.x - p2.x;
+                        let dy = p1.y - p2.y;
+                        let dist = Math.sqrt(dx*dx + dy*dy);
+                        
+                        if(dist < 150) {
+                            ctx.strokeStyle = `rgba(0, 51, 153, ${1 - dist/150})`;
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // --- SCROLLYTELLING LOGIC ---
+        const visualContainer = document.querySelector('.sticky-visual');
+        const steps = document.querySelectorAll('.step');
+        
+        let currentStep = 0;
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    steps.forEach(s => s.classList.remove('active'));
+                    entry.target.classList.add('active');
+                    const stepIndex = parseInt(entry.target.getAttribute('data-step'));
+                    visualContainer.setAttribute('data-state', stepIndex);
+                    currentStep = stepIndex;
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        steps.forEach(step => observer.observe(step));
+        
+        // --- SCROLLY BACKGROUND CANVAS ---
+        (function() {
+            const canvas = document.getElementById('scrolly-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+            
+            function resize() {
+                const rect = visualContainer.getBoundingClientRect();
+                w = canvas.width = rect.width;
+                h = canvas.height = rect.height;
+            }
+            window.addEventListener('resize', resize);
+            // Delay resize to ensure layout is ready
+            setTimeout(resize, 100);
+            
+            let time = 0;
+            
+            function drawNet(t) {
+                // Blue Network connecting
+                ctx.strokeStyle = `rgba(0, 51, 153, 0.3)`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                for(let i=0; i<20; i++) {
+                    let x = (Math.sin(i + t*0.5) * 0.4 + 0.5) * w;
+                    let y = (Math.cos(i*1.5 + t*0.3) * 0.4 + 0.5) * h;
+                    ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+            
+            function drawScan(t) {
+                // Gold Scanning Radar
+                ctx.strokeStyle = `rgba(255, 204, 0, 0.1)`;
+                ctx.lineWidth = 2;
+                let radius = (Math.sin(t) * 0.5 + 0.5) * (w/2);
+                ctx.beginPath();
+                ctx.arc(w/2, h/2, radius, 0, Math.PI*2);
+                ctx.stroke();
+                
+                // Scanline
+                let y = (t % 2) * h;
+                ctx.fillStyle = `rgba(255, 204, 0, 0.1)`;
+                ctx.fillRect(0, y, w, 20);
+            }
+            
+            function drawTarget(t) {
+                // Red Alert Pulse
+                ctx.strokeStyle = `rgba(255, 50, 50, 0.5)`;
+                ctx.lineWidth = 3;
+                
+                // Crosshairs
+                let cx = w/2 + Math.sin(t*5)*5;
+                let cy = h/2 + Math.cos(t*3)*5;
+                
+                ctx.beginPath();
+                ctx.moveTo(cx-50, cy); ctx.lineTo(cx+50, cy);
+                ctx.moveTo(cx, cy-50); ctx.lineTo(cx, cy+50);
+                ctx.stroke();
+                
+                // Pulse
+                if(Math.floor(t*5) % 2 === 0) {
+                    ctx.fillStyle = `rgba(255, 0, 0, 0.1)`;
+                    ctx.fillRect(0, 0, w, h);
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+                time += 0.01;
+                
+                if(currentStep === 1) {
+                    drawNet(time);
+                    drawNet(time + 100);
+                } else if(currentStep === 2) {
+                    drawScan(time * 2);
+                } else if(currentStep === 3) {
+                    drawTarget(time);
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // --- 3D TILT EFFECT & HOVER ---
+        const cards = document.querySelectorAll('.iso-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xPct = x / rect.width;
+                const yPct = y / rect.height;
+                const xRot = (0.5 - yPct) * 20; 
+                const yRot = (xPct - 0.5) * 20;
+                card.style.transform = `rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+            });
+        });
+
+        function transmit() {
+            const id = document.getElementById('contact-id').value;
+            const subject = document.getElementById('contact-subject').value;
+            const data = document.getElementById('contact-data').value;
+            const body = `SECURE TRANSMISSION\n\nFROM: ${id}\n\nDATA:\n${data}`;
+            window.location.href = `mailto:jan@janmark.us?subject=JERUBBAAL: ${subject}&body=${encodeURIComponent(body)}`;
+        }
+    </script>
+</body>
+</html>

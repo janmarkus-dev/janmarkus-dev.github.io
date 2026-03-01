@@ -1,5 +1,7 @@
 /* ========================================
    LANCRE.SK – Modern Single Page Styles
+   “In Lancre, nothing was flat.”
+   Inspired by Terry Pratchett’s Discworld
    ======================================== */
 
 /* ---- CSS Custom Properties ---- */
@@ -18,6 +20,12 @@
     --color-secondary: #c2e7ff;
     --gradient-primary: linear-gradient(135deg, #1e6c93, #7fcfff);
     --gradient-soft: linear-gradient(135deg, rgba(30, 108, 147, 0.15), rgba(127, 207, 255, 0.10));
+
+    /* Lancre crooked angles – “nothing was flat” */
+    --lancre-skew: -1.5deg;
+    --lancre-skew-alt: 1.2deg;
+    --lancre-tilt: rotate(-0.8deg);
+    --lancre-tilt-alt: rotate(0.6deg);
 
     --font-display: 'Outfit', -apple-system, sans-serif;
     --font-body: 'DM Sans', -apple-system, sans-serif;
@@ -97,9 +105,11 @@ img {
     border-radius: 100px;
     font-size: 0.85rem;
     font-weight: 500;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--color-primary-light);
     margin-bottom: 20px;
+    transform: var(--lancre-tilt);
 }
 
 .highlight-word {
@@ -520,6 +530,8 @@ img {
    ======================================== */
 .about-section {
     background: var(--color-bg-alt);
+    position: relative;
+    overflow: hidden;
 }
 
 .about-lead {
@@ -561,10 +573,30 @@ img {
                 box-shadow var(--transition-fast);
 }
 
+.pillar-card:nth-child(odd) {
+    transform: var(--lancre-tilt);
+}
+
+.pillar-card:nth-child(even) {
+    transform: var(--lancre-tilt-alt);
+}
+
 .pillar-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px) rotate(0deg);
     border-color: rgba(30, 108, 147, 0.4);
     box-shadow: var(--shadow-glow);
+}
+
+.pillar-number {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    line-height: 1;
 }
 
 .pillar-icon {
@@ -632,12 +664,14 @@ img {
     100% { transform: translateX(-50%); }
 }
 
-/* Highlights grid */
-.highlights {
-    margin-bottom: 80px;
+/* ========================================
+   STORIES GRID (Unified Naše príbehy)
+   ======================================== */
+.stories {
+    margin-bottom: 0;
 }
 
-.highlights-title {
+.stories-title {
     font-family: var(--font-display);
     font-size: 1.5rem;
     text-align: center;
@@ -645,25 +679,37 @@ img {
     font-weight: 600;
 }
 
-.highlights-grid {
+.stories-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
 }
 
-.highlight-card {
+.story-card {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: 32px 28px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     transition: transform var(--transition-spring),
                 border-color var(--transition-fast),
                 box-shadow var(--transition-fast);
     position: relative;
-    overflow: hidden;
 }
 
-.highlight-card::before {
+/* Lancre “gnarly ground” – nothing is flat */
+.story-card:nth-child(3n+1) {
+    transform: rotate(-0.6deg);
+}
+.story-card:nth-child(3n+2) {
+    transform: rotate(0.4deg);
+}
+.story-card:nth-child(3n) {
+    transform: rotate(-0.3deg);
+}
+
+.story-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -674,37 +720,41 @@ img {
     transform: scaleX(0);
     transform-origin: left;
     transition: transform var(--transition-smooth);
+    z-index: 1;
 }
 
-.highlight-card:hover {
-    transform: translateY(-4px);
+.story-card:hover {
+    transform: translateY(-4px) rotate(0deg);
     border-color: rgba(30, 108, 147, 0.3);
     box-shadow: var(--shadow-glow);
 }
 
-.highlight-card:hover::before {
+.story-card:hover::before {
     transform: scaleX(1);
 }
 
-.highlight-emoji {
-    font-size: 2.2rem;
-    margin-bottom: 12px;
+.story-content {
+    padding: 28px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.highlight-card h4 {
+.story-content h4 {
     font-family: var(--font-display);
     font-size: 1.15rem;
     margin-bottom: 8px;
     font-weight: 600;
 }
 
-.highlight-card p {
+.story-content p {
     font-size: 0.9rem;
     color: var(--color-text-muted);
     line-height: 1.6;
+    flex: 1;
 }
 
-.highlight-link {
+.story-link {
     display: inline-block;
     margin-top: 12px;
     font-size: 0.85rem;
@@ -713,73 +763,67 @@ img {
     transition: transform var(--transition-fast);
 }
 
-.highlight-link:hover {
+.story-link:hover {
     transform: translateX(4px);
 }
 
-/* About media */
-.about-media {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-}
-
-.media-card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+/* Media story cards (video / facebook) */
+.story-card--media .story-media {
+    aspect-ratio: 16 / 10;
     overflow: hidden;
-    transition: transform var(--transition-spring), box-shadow var(--transition-smooth);
 }
 
-.media-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-glow);
+.story-card--media .video-container {
+    /* Override default padding-bottom so it fills the aspect-ratio parent */
+    padding-bottom: 0;
+    height: 100%;
 }
 
-.media-caption {
-    padding: 16px 20px;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-}
-
-/* Facebook embed card */
-.fb-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
-
-.fb-placeholder {
-    padding: 60px 32px;
+.story-card--media .fb-placeholder {
+    height: 100%;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    justify-content: center;
+    gap: 12px;
     background: linear-gradient(135deg, #1877f2 0%, #0d47a1 100%);
     color: white;
     text-align: center;
     transition: filter var(--transition-fast);
 }
 
-.fb-placeholder:hover {
+.story-card--media .fb-placeholder:hover {
     filter: brightness(1.1);
 }
 
-.fb-placeholder svg {
+.story-card--media .fb-placeholder svg {
     opacity: 0.9;
 }
 
-.fb-placeholder span {
+.story-card--media .fb-placeholder span {
     font-weight: 600;
     font-size: 1rem;
 }
 
+.story-card--media .fb-link {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
 /* ========================================
-   RECIPE SECTION
+   RECIPE SECTION – “Gnarly Ground”
    ======================================== */
 .recipe-section {
     background: var(--color-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.recipe-section .section-header {
+    transform: var(--lancre-tilt-alt);
 }
 
 .recipe-content {
@@ -862,8 +906,16 @@ img {
 }
 
 .ingredient-card:hover {
-    transform: translateX(8px);
+    transform: translateX(8px) rotate(0deg);
     border-color: rgba(30, 108, 147, 0.4);
+}
+
+.ingredient-card:nth-child(odd) {
+    transform: var(--lancre-tilt);
+}
+
+.ingredient-card:nth-child(even) {
+    transform: var(--lancre-tilt-alt);
 }
 
 .ingredient-card:hover::after {
@@ -908,6 +960,42 @@ img {
    ======================================== */
 .contact-section {
     background: var(--color-bg-alt);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Contact avatar (replaces emojis) */
+.contact-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: white;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+}
+
+.company-avatar {
+    background: var(--gradient-soft);
+    border: 1px solid var(--color-border);
+    color: var(--color-primary-light);
+    font-size: 1.1rem;
+}
+
+.contact-label {
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary-light);
+    min-width: 36px;
 }
 
 .contact-grid {
@@ -951,6 +1039,7 @@ img {
 
 .contact-icon {
     font-size: 1.6rem;
+    display: none; /* replaced by .contact-avatar */
 }
 
 .contact-card h3 {
@@ -982,9 +1071,29 @@ a.contact-item:hover {
     color: var(--color-text);
 }
 
-.contact-label {
-    flex-shrink: 0;
-    font-size: 1rem;
+/* Lancre crooked section separators */
+.about-section::before,
+.recipe-section::before,
+.contact-section::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: inherit;
+    transform: skewY(var(--lancre-skew));
+    transform-origin: top left;
+    z-index: -1;
+}
+
+.recipe-section::before {
+    transform: skewY(var(--lancre-skew-alt));
+    transform-origin: top right;
+}
+
+.contact-section::before {
+    transform: skewY(var(--lancre-skew));
 }
 
 /* Map */
@@ -1014,6 +1123,7 @@ a.contact-item:hover {
     padding: 40px 0;
     border-top: 1px solid var(--color-border);
     background: var(--color-bg);
+    transform: skewY(0deg); /* reset any inherited skew */
 }
 
 .footer-content {
@@ -1306,9 +1416,19 @@ a.contact-item:hover {
     .hero-section { padding-top: 80px; }
     .section-header { margin-bottom: 40px; }
     .pillars-grid { grid-template-columns: 1fr; }
-    .highlights-grid { grid-template-columns: 1fr; }
-    .about-media { grid-template-columns: 1fr; }
+    .stories-grid { grid-template-columns: 1fr; }
     .hero-video { margin-top: 40px; }
     .play-btn svg { width: 56px; height: 38px; }
     .contact-people { grid-template-columns: 1fr; }
+    /* Flatten the crooked for mobile readability */
+    .story-card,
+    .pillar-card,
+    .ingredient-card {
+        transform: none !important;
+    }
+    .story-card:hover,
+    .pillar-card:hover,
+    .ingredient-card:hover {
+        transform: translateY(-4px) !important;
+    }
 }

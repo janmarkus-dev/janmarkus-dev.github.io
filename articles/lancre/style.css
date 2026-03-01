@@ -1063,8 +1063,244 @@ a.contact-item:hover {
 }
 
 /* ========================================
+   SECTION PARALLAX SHAPES
+   ======================================== */
+.section-bg-shapes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.section > .container {
+    position: relative;
+    z-index: 1;
+}
+
+.section-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    will-change: transform;
+}
+
+.section-shape-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(30, 108, 147, 0.15);
+    top: 10%;
+    right: -10%;
+}
+
+.section-shape-2 {
+    width: 350px;
+    height: 350px;
+    background: rgba(127, 207, 255, 0.12);
+    bottom: 10%;
+    left: -8%;
+}
+
+.section-shape-3 {
+    width: 450px;
+    height: 450px;
+    background: rgba(30, 108, 147, 0.12);
+    top: -5%;
+    left: -15%;
+}
+
+.section-shape-4 {
+    width: 300px;
+    height: 300px;
+    background: rgba(127, 207, 255, 0.10);
+    bottom: -10%;
+    right: -10%;
+}
+
+.section-shape-5 {
+    width: 350px;
+    height: 350px;
+    background: rgba(194, 231, 255, 0.10);
+    top: 20%;
+    left: 60%;
+}
+
+.section-shape-6 {
+    width: 280px;
+    height: 280px;
+    background: rgba(30, 108, 147, 0.12);
+    bottom: 20%;
+    right: 60%;
+}
+
+/* ========================================
+   BRAND LOGOS
+   ======================================== */
+.brand-logo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px 10px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    transition: all var(--transition-fast);
+    filter: grayscale(0.6) brightness(0.8);
+    opacity: 0.65;
+}
+
+.brand-logo-item:hover {
+    filter: grayscale(0) brightness(1);
+    opacity: 1;
+    border-color: rgba(30, 108, 147, 0.5);
+    background: rgba(30, 108, 147, 0.08);
+    box-shadow: 0 0 24px rgba(30, 108, 147, 0.15);
+}
+
+.brand-logo-item img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    object-fit: contain;
+    background: white;
+    padding: 2px;
+}
+
+.brand-logo-item span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.brand-logo-item:hover span {
+    color: var(--color-text);
+}
+
+.brand-text-only {
+    padding: 10px 22px;
+}
+
+/* ========================================
+   CONTACT PERSON TILES
+   ======================================== */
+.contact-people {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.contact-person-tile {
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-person-tile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-smooth);
+}
+
+.contact-person-tile:hover::before {
+    transform: scaleX(1);
+}
+
+.contact-person-tile:hover {
+    transform: translateY(-4px);
+}
+
+/* ========================================
+   ENHANCED COLOR ACCENTS
+   ======================================== */
+.section-badge {
+    border-color: rgba(30, 108, 147, 0.25);
+    box-shadow: 0 0 20px rgba(30, 108, 147, 0.08);
+}
+
+.pillar-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    z-index: 1;
+}
+
+.pillar-card:hover::before {
+    opacity: 1;
+}
+
+.about-section,
+.recipe-section,
+.contact-section {
+    border-top: 1px solid rgba(30, 108, 147, 0.15);
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, var(--color-bg-alt));
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ========================================
+   FOOTER CREDIT
+   ======================================== */
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.footer-credit {
+    font-size: 0.78rem;
+    color: var(--color-text-dim);
+}
+
+.footer-credit a {
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+    text-decoration: none;
+}
+
+.footer-credit a:hover {
+    color: var(--color-primary-light);
+}
+
+/* ========================================
    RESPONSIVE FINE-TUNING
    ======================================== */
+@media (max-width: 768px) {
+    .contact-people {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 640px) {
     .section { padding: 80px 0; }
     .hero-section { padding-top: 80px; }
@@ -1074,4 +1310,5 @@ a.contact-item:hover {
     .about-media { grid-template-columns: 1fr; }
     .hero-video { margin-top: 40px; }
     .play-btn svg { width: 56px; height: 38px; }
+    .contact-people { grid-template-columns: 1fr; }
 }

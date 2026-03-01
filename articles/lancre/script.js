@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCursorGlow();
     initSmoothScroll();
     initParallaxShapes();
+    initSectionParallax();
 });
 
 /* ---- Reveal on Scroll (Intersection Observer) ---- */
@@ -177,4 +178,35 @@ function initParallaxShapes() {
             ticking = true;
         }
     }, { passive: true });
+}
+
+/* ---- Section Parallax Elements ---- */
+function initSectionParallax() {
+    const elements = document.querySelectorAll('[data-parallax]');
+    if (!elements.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function update() {
+        const windowHeight = window.innerHeight;
+        elements.forEach(el => {
+            const speed = parseFloat(el.dataset.parallax) || 0;
+            const parent = el.closest('.section') || el.parentElement;
+            const rect = parent.getBoundingClientRect();
+            const sectionCenter = rect.top + rect.height / 2;
+            const offset = (sectionCenter - windowHeight / 2) * speed;
+            el.style.transform = `translateY(${offset}px)`;
+        });
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                update();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    update();
 }

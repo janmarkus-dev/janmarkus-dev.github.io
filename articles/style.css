@@ -21,7 +21,7 @@ body {
     color: var(--md-sys-color-on-background);
     font-family: 'Space Mono', monospace;
     line-height: 1.7;
-    max-width: 840px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 60px 30px;
     font-size: 15px;

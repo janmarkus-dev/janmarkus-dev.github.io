@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prešpurčina — Kompletný sprievodca bratislavským dialektom</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fdf6ec;
+  --bg-dark: #f3e8d2;
+  --text: #2c1810;
+  --text-muted: #6b4f3a;
+  --accent: #8b2500;
+  --accent-light: #c0522e;
+  --border: #d4b896;
+  --table-head: #3d2b1f;
+  --table-alt: #faf0e0;
+  --highlight: #fff4cc;
+  --section-bg: #f7edd8;
+  --code-bg: #eee0c8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 17px;
+}
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.72;
+  padding: 0;
+}
+
+/* Header */
+.hero {
+  background: linear-gradient(135deg, #3d2b1f 0%, #5a3a28 40%, #8b2500 100%);
+  color: #fdf6ec;
+  padding: 4rem 2rem 3.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 1;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.hero .subtitle {
+  font-size: 1.15rem;
+  font-weight: 300;
+  opacity: 0.85;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  font-style: italic;
+}
+
+/* Navigation */
+nav {
+  background: var(--table-head);
+  padding: 0.8rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  justify-content: center;
+}
+
+nav a {
+  color: #d4b896;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+nav a:hover { color: #fff; }
+
+/* Main content */
+.content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--accent);
+  margin: 3.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--border);
+  letter-spacing: -0.01em;
+}
+
+h2:first-of-type { margin-top: 0; }
+
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: var(--table-head);
+  margin: 2rem 0 0.8rem;
+}
+
+p { margin-bottom: 1rem; }
+
+strong { color: var(--accent); font-weight: 700; }
+
+em { font-style: italic; }
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  margin: 1.2rem 0 1.8rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(60,30,10,0.06);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+thead th {
+  background: var(--table-head);
+  color: #fdf6ec;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  position: sticky;
+  top: 0;
+}
+
+td {
+  padding: 0.55rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+tr:nth-child(even) td { background: var(--table-alt); }
+tr:last-child td { border-bottom: none; }
+
+td:first-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+/* Blockquotes for examples */
+blockquote {
+  background: var(--section-bg);
+  border-left: 4px solid var(--accent);
+  padding: 1rem 1.3rem;
+  margin: 1rem 0 1.5rem;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.95rem;
+}
+
+blockquote .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* Highlight box */
+.highlight-box {
+  background: var(--highlight);
+  border: 1px solid #e6d494;
+  border-radius: 8px;
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+/* Info cards */
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.3rem 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 1px 4px rgba(60,30,10,0.05);
+}
+
+.card h4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+/* Lists */
+ul, ol {
+  margin: 0.6rem 0 1rem 1.5rem;
+}
+
+li { margin-bottom: 0.35rem; }
+
+/* Footer */
+footer {
+  background: var(--table-head);
+  color: #d4b896;
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.85rem;
+}
+
+footer a { color: var(--accent-light); }
+
+/* Responsive */
+@media (max-width: 640px) {
+  html { font-size: 15px; }
+  .hero h1 { font-size: 2.2rem; }
+  .content { padding: 1.5rem 1rem 3rem; }
+  nav { padding: 0.6rem 1rem; }
+  h2 { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Prešpurčina ešče nezgegla!</h1>
+  <p class="subtitle">Kompletný sprievodca vymierajúcim bratislavským dialektom — slovník, pravidlá, história a zdroje na učenie</p>
+</header>
+
+<nav>
+  <a href="#historia">História</a>
+  <a href="#fonologia">Fonológia</a>
+  <a href="#gramatika">Gramatika</a>
+  <a href="#slovnik">Slovník</a>
+  <a href="#frazy">Frázy</a>
+  <a href="#priklady">Príklady</a>
+  <a href="#toponyma">Miestne názvy</a>
+  <a href="#zdroje">Zdroje</a>
+  <a href="#zachrana">Záchrana</a>
+</nav>
+
+<main class="content">
+
+<!-- ============================== HISTÓRIA ============================== -->
+<h2 id="historia">Historický kontext — ako vznikla prešpurčina</h2>
+
+<p>Prešpurčina je mestský dialekt Bratislavy, ktorý vznikol zo stáročí spolunažívania Slovákov, Nemcov, Maďarov a Židov v meste kedysi známom ako <strong>Pressburg / Pozsony / Prešporok</strong>. Ide o západoslovenský dialekt nasýtený nemeckými, maďarskými, jidiš a latinskými výpožičkami — jazykový odtlačok najviacjazyčnejšieho mesta strednej Európy.</p>
+
+<p>Nemeckí kolonisti sa usadili pod bratislavským hradom od 12. storočia. Po mongolskom vpáde v roku 1241 kráľ Belo IV. udelil mestu v roku 1291 <strong>švábske mestské právo</strong>, čím urýchlil nemeckú imigráciu. Keď Osmani v roku 1536 obsadili Budín, Prešporok sa stal <strong>hlavným mestom Uhorska</strong> a korunovačným mestom — v Dóme sv. Martina korunovali <strong>11 panovníkov</strong> medzi rokmi 1536 a 1830.</p>
+
+<p>V polovici 19. storočia bolo <strong>viac ako 60 % obyvateľov etnických Nemcov</strong>. Sčítanie z roku 1910 zaznamenalo <strong>42 % Nemcov, 41 % Maďarov a 15 % Slovákov</strong>. Židovská komunita pridávala jidiš a hebrejčinu. Sociálna realita bola vrstvená: slovenčina dominovala na trhoch a v robotníckych štvrtiach, maďarčina v úradoch a byrokracii, nemčina v divadlách, školách a meštianskych salónoch.</p>
+
+<p>Identita „Prešpuráka" presahovala národnosť. Keď sa cisár František Jozef údajne spýtal miestnej delegácie, či sú Maďari alebo Nemci, odpovedali: <strong>„Wir sind halt Pressburger"</strong> — „My sme jednoducho Prešpuráci."</p>
+
+<h3>Zánik dialektu</h3>
+
+<p>Smrť prešpurčiny prišla vo vlnách. Vznik Československa v roku 1918 priniesol slovakizačné politiky; mesto bolo premenované na <strong>Bratislavu 27. marca 1919</strong>. Holokaust zničil židovskú komunitu. Po roku 1945 <strong>Benešove dekréty</strong> vysídlili väčšinu etnických Nemcov — približne 31 000 z mesta a 19 000 z okolia. V 50. rokoch bola Bratislava <strong>z vyše 90 % slovenská</strong>. Socialistické obdobie prinieslo masovú migráciu z vidieka, čo ďalej riedilo miestny jazyk.</p>
+
+<p>Posledná generácia plynulých hovoriacich — ľudia narodení približne medzi <strong>1916 a 1940</strong> — dnes odchádza. Okno na zachovanie sa zatvára.</p>
+
+<!-- ============================== FONOLÓGIA ============================== -->
+<h2 id="fonologia">Fonológia — ako prešpurčina znie</h2>
+
+<p>Zvukový systém prešpurčiny patrí do <strong>západoslovenskej dialektovej skupiny</strong>, ale nesie výrazné znaky stáročného nemeckého a maďarského kontaktu. Základný akademický popis pochádza od <strong>Konštantína Palkoviča</strong> (článok „Reč staršej Bratislavy", <em>Slovenská reč</em>, 1992).</p>
+
+<h3>1. Neprítomnosť dvojhlások</h3>
+
+<p>Najnápadnejší rys: kde spisovná slovenčina používa <em>ie</em>, <em>ia</em>, <em>iu</em>, prešpurčina dosadzuje <strong>dlhé monoftongy</strong> — spoločný znak s trnavským a záhorským dialektom:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Spisovná slovenčina</th><th>Prešpurčina</th><th>Význam</th></tr></thead>
+  <tbody>
+    <tr><td>pen<strong>ia</strong>ze</td><td>pen<strong>á</strong>ze</td><td>peniaze</td></tr>
+    <tr><td>č<strong>ia</strong>pka</td><td>č<strong>á</strong>pka</td><td>čiapka</td></tr>
+    <tr><td>sm<strong>ia</strong>li sa</td><td>sm<strong>á</strong>li sa</td><td>smiali sa</td></tr>
+    <tr><td>por<strong>ia</strong>dok</td><td>por<strong>á</strong>dek</td><td>poriadok</td></tr>
+    <tr><td>zat<strong>ia</strong>ľ</td><td>zat<strong>á</strong>l</td><td>zatiaľ</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>2. Prízvuk na prvej slabike a predlžovanie</h3>
+
+<p>Výrazný „bratislavský prízvuk" s dôrazom na prvú slabiku, odrážajúci nemeckú prozódiu. Spevák <strong>Miro Žbirka</strong> si tento prízvuk zachoval celú kariéru.</p>
+
+<h3>3. Koncové znelenie</h3>
+
+<p>Podobne ako v nemčine, koncové <em>v</em> prechádza na <em>f</em> — napríklad <em>schodov</em> → <strong>schodof</strong>.</p>
+
+<h3>4. Posun ť → č</h3>
+
+<p>V bežných slovách sa <em>ť</em> mení na <em>č</em>: <em>ešte</em> → <strong>ešče</strong>.</p>
+
+<h3>5. Porušenie rytmického zákona</h3>
+
+<p>Prešpurčina <strong>nerespektuje zákon o rytmickom krátení</strong> — základné pravidlo spisovnej slovenčiny, ktoré kráti dlhé samohlásky po iných dlhých slabikách. V dialekte sa dĺžka voľne zachováva.</p>
+
+<h3>6. Adaptácia nemeckých hlások</h3>
+
+<p>Nemecké výpožičky prešli systematickou fonetickou adaptáciou:</p>
+<ul>
+  <li>Nemecké <em>ei</em> → slovenské <em>aj</em> (Feier<strong>a</strong>bend → f<strong>aj</strong>ront)</li>
+  <li>Nemecké <em>pf</em> → slovenské <em>f</em> (Pflaster → <strong>f</strong>laster)</li>
+  <li>Nemecké zhluky <em>šm-</em>, <em>šp-</em>, <em>šl-</em> sa zachovávajú (šmajznúť, šporhelt, šlohnúť)</li>
+</ul>
+
+<!-- ============================== GRAMATIKA ============================== -->
+<h2 id="gramatika">Gramatika — ako sa cudzie slová stávajú slovenskými</h2>
+
+<p>Prešpurčina vyvinula produktívny systém na začleňovanie cudzích slov do slovenských gramatických vzorcov.</p>
+
+<h3>Tvorenie slovies</h3>
+
+<p>Dva hlavné prípony na adaptáciu nemeckých a maďarských slovies:</p>
+
+<div class="card">
+  <h4>Prípona -ovať (nedokonavý vid)</h4>
+  <p><strong>handlovať sa</strong> (zjednávať, z nem. <em>handeln</em>), <strong>rajzovať</strong> (cestovať, z <em>reisen</em>), <strong>bedínovat</strong> (posluhovať, z <em>bedienen</em>), <strong>haprovat</strong> (zlyhávať, z <em>hapern</em>), <strong>šmírovat</strong> (tajne pozorovať, z <em>schmieren</em>), <strong>hecovať</strong> (provokovať, z <em>hetzen</em>), <strong>čavargovat</strong> (potulovať sa, z maď. <em>csavarog</em>)</p>
+</div>
+
+<div class="card">
+  <h4>Prípona -núť (dokonavý vid)</h4>
+  <p><strong>grajfnúť</strong> (chytiť/ukradnúť, z <em>greifen</em>), <strong>šmajznúť</strong> (ulapiť, z <em>schmeißen</em>), <strong>šlohnúť</strong> (ukradnúť, z <em>schlagen</em>), <strong>zgegnúť</strong> (zomrieť, pôvod sporný)</p>
+</div>
+
+<h3>Skloňovanie prevzatých podstatných mien</h3>
+
+<p>Prevzaté podstatné mená sa plynulo začleňujú do slovenských skloňovacích vzorov. Mužské podstatné mená ako <strong>pajzel</strong> (krčma, z viedenského <em>Beisl</em>) sa skloňujú pravidelne: genitív <em>pajzla</em>, lokál <em>v pajzli</em>. Ženské podstatné mená dostávajú príslušné koncovky: <strong>kisna</strong> (debna, z nem. <em>Kiste</em>), genitív <em>kisne</em>. Zdrobňovacie prípony sa prirodzene spájajú s cudzími kmeňmi: <strong>šamerlík</strong> (malá stolička, z <em>Schemel</em> + <em>-ík</em>).</p>
+
+<h3>Mišmaš — jazykový mix</h3>
+
+<p>Najcharakteristickejší gramatický jav bol <strong>„mišmaš"</strong> — neustále prepínanie medzi slovenčinou, nemčinou a maďarčinou v rámci jednej vety. Lingvista <strong>Jozef Tancer</strong> tento fenomén zdokumentoval prostredníctvom viac ako 70 rozhovorov so starými Bratislavčanmi. Hovoriaci menili jazyk uprostred vety bez vedomého úsilia — vyberali to slovo či frázu, ktorá prišla najprirodzejšie.</p>
+
+<div class="highlight-box">
+  <strong>Pozor:</strong> Dialekt nebol jednotný naprieč štvrťami. Vajnory hovorili modranským nárečím; Rača prechodným záhorsko-modranským; Lamač, Dúbravka a Záhorská Bystrica záhorským; a jadro „prešpurčiny" sa formovalo v historickom centre, najmä v <strong>Blumentáli</strong> a <strong>Karlovej Vsi</strong>.
+</div>
+
+<!-- ============================== SLOVNÍK ============================== -->
+<h2 id="slovnik">Slovník — lexikón prešpurčiny</h2>
+
+<p>Slovná zásoba prešpurčiny je jej najcharakteristickejším a najlepšie zdokumentovaným prvkom. Facebooková skupina „Prešpurčina ešče nezgegla!" zostavila crowdsourcový slovník v Google Sheets s takmer <strong>1 000 heslami</strong>. Nemecké výpožičky tvoria prevažnú väčšinu, nasledujú maďarské, s menšími príspevkami z jidiš, francúzštiny, latinčiny a rómskeho jazyka.</p>
+
+<h3>Domácnosť a predmety</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Prešpurčina</th><th>Spisovná slovenčina</th><th>Význam</th><th>Pôvod</th></tr></thead>
+  <tbody>
+    <tr><td>šporhelt</td><td>sporák</td><td>sporák</td><td>nem. <em>Sparherd</em></td></tr>
+    <tr><td>ajskasna</td><td>chladnička</td><td>chladnička</td><td>nem. <em>Eiskasten</em></td></tr>
+    <tr><td>fijók</td><td>zásuvka</td><td>zásuvka</td><td>maď. <em>fiók</em></td></tr>
+    <tr><td>gadroba</td><td>šatník</td><td>šatník</td><td>nem. <em>Garderobe</em></td></tr>
+    <tr><td>hokerla</td><td>stolička bez operadla</td><td>taburetka</td><td>nem. <em>Hocker</em></td></tr>
+    <tr><td>šamerlík</td><td>malá stolička</td><td>malá stolička</td><td>nem. <em>Schemel</em> + -ík</td></tr>
+    <tr><td>piksla</td><td>plechovica</td><td>plechovka</td><td>nem. <em>Büchse</em></td></tr>
+    <tr><td>kisna</td><td>debna</td><td>debna</td><td>nem. <em>Kiste</em></td></tr>
+    <tr><td>kerbel</td><td>košík</td><td>košík</td><td>nem. <em>Körbel</em></td></tr>
+    <tr><td>špígl</td><td>zrkadlo</td><td>zrkadlo</td><td>nem. <em>Spiegel</em></td></tr>
+    <tr><td>firhang</td><td>záclony</td><td>záclony</td><td>nem. <em>Vorhang</em></td></tr>
+    <tr><td>portviš</td><td>zmeták</td><td>metla</td><td>nem. <em>Bortwisch</em></td></tr>
+    <tr><td>šteker</td><td>zástrčka</td><td>zástrčka</td><td>nem. <em>Stecker</em></td></tr>
+    <tr><td>šlauch</td><td>hadica</td><td>hadica</td><td>nem. <em>Schlauch</em></td></tr>
+    <tr><td>štuplcíger</td><td>vývrtka</td><td>vývrtka</td><td>nem. <em>Stoppelzieher</em></td></tr>
+    <tr><td>vixlajnvant</td><td>gumený obrus</td><td>voskový obrus</td><td>nem. <em>Wachsleinwand</em></td></tr>
+    <tr><td>plafón</td><td>strop</td><td>strop</td><td>franc. <em>plafond</em></td></tr>
+    <tr><td>vercajg</td><td>náradie</td><td>náradie</td><td>nem. <em>Werkzeug</em></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Jedlo a pitie</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Prešpurčina</th><th>Spisovná slovenčina</th><th>Význam</th><th>Pôvod</th></tr></thead>
+  <tbody>
+    <tr><td>frištuk</td><td>raňajky</td><td>raňajky</td><td>nem. <em>Frühstück</em></td></tr>
+    <tr><td>ajeršpajz</td><td>praženica</td><td>praženica</td><td>nem. <em>Eierspeise</em></td></tr>
+    <tr><td>šmolcbrot</td><td>chlieb so sadlom</td><td>chlieb so sadlom</td><td>nem. <em>Schmalzbrot</em></td></tr>
+    <tr><td>cušpajz</td><td>prívarok</td><td>dusená zelenina</td><td>nem. <em>Zuspeise</em></td></tr>
+    <tr><td>kugluf</td><td>bábovka</td><td>bábovka</td><td>nem. <em>Gugelhupf</em></td></tr>
+    <tr><td>šmorn</td><td>trhanec</td><td>trhaný lekvárnik</td><td>nem. <em>Schmarren</em></td></tr>
+    <tr><td>lebakes</td><td>pečeňový syr</td><td>pečeňová nátierka</td><td>nem. <em>Leberkäse</em></td></tr>
+    <tr><td>pajgle</td><td>rožky s makom</td><td>makové/orechové rožky</td><td>jidiš <em>beygl</em></td></tr>
+    <tr><td>šnitling</td><td>pažítka</td><td>pažítka</td><td>nem. <em>Schnittling</em></td></tr>
+    <tr><td>kanapky</td><td>jednohubky</td><td>jednohubky</td><td>franc. <em>canapé</em></td></tr>
+    <tr><td>štolverky</td><td>cukríky</td><td>cukríky</td><td>nem. značka <em>Stollwerk</em></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Oblečenie, telo a osobné veci</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Prešpurčina</th><th>Spisovná slovenčina</th><th>Význam</th><th>Pôvod</th></tr></thead>
+  <tbody>
+    <tr><td>fusakle</td><td>ponožky</td><td>ponožky</td><td>nem. <em>Fußsockel</em></td></tr>
+    <tr><td>štrimfle</td><td>pančuchy</td><td>pančuchy</td><td>nem. <em>Strümpfe</em></td></tr>
+    <tr><td>oringle</td><td>náušnice</td><td>náušnice</td><td>nem. <em>Ohrringe</em></td></tr>
+    <tr><td>hósentrógle</td><td>traky</td><td>traky</td><td>nem. <em>Hosenträger</em></td></tr>
+    <tr><td>girtla</td><td>opasok</td><td>opasok</td><td>nem. <em>Gürtel</em></td></tr>
+    <tr><td>šnuptichel</td><td>vreckovka</td><td>vreckovka</td><td>nem. <em>Schnupftuch</em></td></tr>
+    <tr><td>flaster</td><td>náplasť</td><td>náplasť</td><td>nem. <em>Pflaster</em></td></tr>
+    <tr><td>budelár</td><td>peňaženka</td><td>peňaženka</td><td>franc. <em>porte-dollar</em></td></tr>
+    <tr><td>haksne</td><td>nohy</td><td>nohy</td><td>nem. <em>Haxen</em></td></tr>
+    <tr><td>valaga</td><td>zadok</td><td>zadok</td><td>maď. dialekt</td></tr>
+    <tr><td>sicflajš</td><td>zadok / trpezlivosť</td><td>„sedacie mäso"</td><td>nem. <em>Sitzfleisch</em></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Slovesá</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Prešpurčina</th><th>Spisovná slovenčina</th><th>Význam</th><th>Pôvod</th></tr></thead>
+  <tbody>
+    <tr><td>rajzovať</td><td>cestovať</td><td>cestovať</td><td>nem. <em>reisen</em></td></tr>
+    <tr><td>handlovať sa</td><td>zjednávať</td><td>zjednávať</td><td>nem. <em>handeln</em></td></tr>
+    <tr><td>bedínovat</td><td>posluhovať</td><td>obslúžiť</td><td>nem. <em>bedienen</em></td></tr>
+    <tr><td>vyštafírovať sa</td><td>naparádiť sa</td><td>vyobliekať sa</td><td>nem. <em>staffieren</em></td></tr>
+    <tr><td>haprovat</td><td>zlyhávať</td><td>nefungovať</td><td>nem. <em>hapern</em></td></tr>
+    <tr><td>šmírovat</td><td>tajne pozorovať</td><td>špehovať</td><td>nem. <em>schmieren</em></td></tr>
+    <tr><td>opajcovat</td><td>okopírovať</td><td>obkresliť</td><td>nem. <em>abpausen</em></td></tr>
+    <tr><td>grajfnúť</td><td>chytiť / ukradnúť</td><td>chmatnúť</td><td>nem. <em>greifen</em></td></tr>
+    <tr><td>šmajznúť</td><td>ukradnúť</td><td>ulapiť</td><td>nem. <em>schmeißen</em></td></tr>
+    <tr><td>šlohnúť</td><td>ukradnúť</td><td>ukradnúť</td><td>nem. <em>schlagen</em></td></tr>
+    <tr><td>zgegnúť</td><td>zomrieť</td><td>odkopnúť kopytá</td><td>sporný pôvod</td></tr>
+    <tr><td>čavargovat</td><td>potulovať sa</td><td>poflakovat sa</td><td>maď. <em>csavarog</em></td></tr>
+    <tr><td>kutrat</td><td>prehrabávať</td><td>hrabať sa</td><td>nem. dialekt</td></tr>
+    <tr><td>labzovať</td><td>túlať sa</td><td>potulovať sa</td><td>dialekt</td></tr>
+    <tr><td>hecovať</td><td>provokovať</td><td>provokovať</td><td>nem. <em>hetzen</em></td></tr>
+    <tr><td>cmugať</td><td>fajčiť</td><td>fajčiť</td><td>dialekt</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Ľudia, nadávky a typy postáv</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Prešpurčina</th><th>Spisovná slovenčina</th><th>Význam</th><th>Pôvod</th></tr></thead>
+  <tbody>
+    <tr><td>mešuge</td><td>blázon</td><td>šialený</td><td>jidiš <em>meshuge</em></td></tr>
+    <tr><td>chamajda</td><td>nemravnica</td><td>nemorálna žena</td><td>jidiš/maď.</td></tr>
+    <tr><td>gazember</td><td>naničhodník</td><td>darebák</td><td>maď. <em>gazember</em></td></tr>
+    <tr><td>ezermešter</td><td>šikovný majster</td><td>majster na všetko</td><td>maď. <em>ezermester</em></td></tr>
+    <tr><td>kasperle</td><td>šašo</td><td>klaun</td><td>nem. <em>Kasperle</em></td></tr>
+    <tr><td>lalo</td><td>hlupák</td><td>hlupák</td><td>dialekt</td></tr>
+    <tr><td>fuchtľa</td><td>neporiadna žena</td><td>fľandra</td><td>nem. <em>Fuchtel</em></td></tr>
+    <tr><td>štricák</td><td>uličník</td><td>pouličný grázl</td><td>nem. <em>Stritzer</em></td></tr>
+    <tr><td>lafna</td><td>pochybná žena</td><td>dievča s pochybnou povesťou</td><td>dialekt</td></tr>
+    <tr><td>krampus</td><td>čert</td><td>čert (detský)</td><td>nem. <em>Krampus</em></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================== FRÁZY ============================== -->
+<h2 id="frazy">Frázy a výrazy starej Bratislavy</h2>
+
+<p>Idiomatické výrazy prešpurčiny odrážajú charakter dialektu — priamy, farebný a nasýtený viacjazyčným vtipom.</p>
+
+<h3>Zvolania a bežné frázy</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Prešpurčina</th><th>Význam</th><th>Poznámka</th></tr></thead>
+  <tbody>
+    <tr><td>Fujtajfl!</td><td>Do čerta!</td><td>z nem. <em>pfui Teufel</em></td></tr>
+    <tr><td>Amen dolóres!</td><td>Beda! Nešťastie!</td><td>pseudo-latinský výraz</td></tr>
+    <tr><td>Anjcvaj</td><td>Raz-dva, rýchlo</td><td>z nem. <em>eins-zwei</em></td></tr>
+    <tr><td>Šabsió!</td><td>Rýchlo! Pohni!</td><td>maďarský pôvod</td></tr>
+    <tr><td>Kuš!</td><td>Buď ticho! Choď preč!</td><td>dialektálne</td></tr>
+    <tr><td>Máte recht</td><td>Máte pravdu</td><td>z nem. <em>Recht</em></td></tr>
+    <tr><td>Dostaneš virgas</td><td>Dostaneš po zadku</td><td>z maď. <em>virgács</em> (prút)</td></tr>
+    <tr><td>Príde krampus a zebere ťa</td><td>Príde čert a vezme ťa</td><td>výstraha pre deti</td></tr>
+    <tr><td>Robiť si prču</td><td>Robiť si srandu z niekoho</td><td>dialektálne</td></tr>
+    <tr><td>Kúpila čački mački</td><td>Kúpila zbytočnosti</td><td>drobnosti, nezmysly</td></tr>
+    <tr><td>Mosí biť strelení</td><td>Musí byť hlúpy/bláznivý</td><td>dialektálne</td></tr>
+    <tr><td>Je mírne líznutí</td><td>Je trošku opitý</td><td>dialektálne</td></tr>
+    <tr><td>Srco mi hapruje</td><td>Srdce mi zlyháva</td><td>z <em>haprovat</em></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================== PRÍKLADY ============================== -->
+<h2 id="priklady">Porovnávacie príklady — prešpurčina vs. spisovná slovenčina</h2>
+
+<blockquote>
+  <span class="label">Prešpurčina</span>
+  „To je taký ezermešter, ale fčul má už fajront a vercajg vo fijóku."
+  <span class="label" style="margin-top:0.5rem">Spisovná slovenčina</span>
+  „To je taký šikovný majster, ale teraz má už voľno a náradie v zásuvke."
+  <span class="label" style="margin-top:0.5rem">Preklad</span>
+  Je to taký majster na všetko, ale teraz má už voľno a náradie v zásuvke.
+</blockquote>
+
+<blockquote>
+  <span class="label">Prešpurčina</span>
+  „Ve vačku ani floka. Tak pocem, spravím ti na frištuk ajeršpajz. Anjcvaj a bude fertik."
+  <span class="label" style="margin-top:0.5rem">Spisovná slovenčina</span>
+  „Vo vrecku ani koruny. Tak poď sem, spravím ti na raňajky praženicu. Raz-dva a bude hotová."
+  <span class="label" style="margin-top:0.5rem">Preklad</span>
+  Vo vrecku ani koruna. Poď sem, spravím ti na raňajky praženicu. Bleskovo a bude hotová.
+</blockquote>
+
+<blockquote>
+  <span class="label">Prešpurčina</span>
+  „Nelabzujem po venku a trčím doma. Keď už na špacírku, tak s ksichtuchom na hube. Skrátka lepší sedet doma na valage, jak čavargovat po korze."
+  <span class="label" style="margin-top:0.5rem">Spisovná slovenčina</span>
+  „Netúlam sa po vonku a ostávam doma. Keď už na prechádzku, tak s rúškom na ústach. Proste lepšie sedieť doma na zadku než sa túlať po korze."
+</blockquote>
+
+<blockquote>
+  <span class="label">Prešpurčina</span>
+  „Vyluxovala som si počaz tejto pliagy cimry, že sa blyštia jak špígel. Teraz okoštujeme kugluf."
+  <span class="label" style="margin-top:0.5rem">Spisovná slovenčina</span>
+  „Poupratovala som počas tejto epidémie izby, že sa lesknú ako zrkadlo. Teraz ochutnáme bábovku."
+</blockquote>
+
+<blockquote>
+  <span class="label">Prešpurčina</span>
+  „Grajfni do tej kisne a žični mi kalapáč."
+  <span class="label" style="margin-top:0.5rem">Spisovná slovenčina</span>
+  „Siahni do tej debny a požičaj mi kladivo."
+</blockquote>
+
+<!-- ============================== TOPONYMÁ ============================== -->
+<h2 id="toponyma">Miestne názvy — dialektová mapa Bratislavy</h2>
+
+<p>Jednou z najzaujímavejších stránok prešpurčiny je alternatívna toponymia — kompletná sada názvov štvrtí odvodených z nemčiny a maďarčiny, ktoré starí Bratislavčania používali namiesto moderných slovenských názvov. <strong>Ivor Švihran</strong> zdokumentoval vyše 50 historických variant:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Prešpurčina</th><th>Moderný názov</th><th>Etymológia</th></tr></thead>
+  <tbody>
+    <tr><td>Prešpurek / Prešporek</td><td>Bratislava</td><td>nem. <em>Pressburg</em></td></tr>
+    <tr><td>Blumentál</td><td>Kvetná dolina</td><td>nem. „kvetinové údolie"</td></tr>
+    <tr><td>Cukrmandel</td><td>Podhradie</td><td>nem. <em>Zuckermandl</em></td></tr>
+    <tr><td>Kuchajda</td><td>Pasienky</td><td>nem. <em>Kuhheide</em> („kraví pasienko")</td></tr>
+    <tr><td>Longitál</td><td>Dlhé diely</td><td>nem. <em>Langentheil</em> („dlhý diel")</td></tr>
+    <tr><td>Cigofeld</td><td>Tehelné pole</td><td>nem. <em>Ziegelfeld</em> („tehlové pole")</td></tr>
+    <tr><td>Firšnál</td><td>Námestie slobody</td><td>nem. <em>Fürstenallee</em> („kniežacia alej")</td></tr>
+    <tr><td>Šendorf</td><td>Obchodná ulica</td><td>nem. <em>Schöndorf</em> („pekná ves")</td></tr>
+    <tr><td>Koldorf</td><td>Karlova Ves</td><td>nem. <em>Karlsdorf</em></td></tr>
+    <tr><td>Račišdorf</td><td>Rača</td><td>nem. <em>Ratzersdorf</em></td></tr>
+    <tr><td>Kramer</td><td>Kramáre</td><td>nem. <em>Kramer</em></td></tr>
+    <tr><td>Špíglhajn</td><td>Zrkadlový háj</td><td>nem. <em>Spiegelhagen</em></td></tr>
+    <tr><td>Tébeň / Tibeň</td><td>Devín</td><td>nem. <em>Theben</em></td></tr>
+    <tr><td>Dornkapla / Mexiko</td><td>Trnávka</td><td>nem. <em>Dornkappeln</em></td></tr>
+    <tr><td>Pišpeky</td><td>Podunajské Biskupice</td><td>maď. <em>Püspöki</em></td></tr>
+    <tr><td>Feriba / Feriby</td><td>Prievoz</td><td>maď. <em>Főrév</em></td></tr>
+    <tr><td>Orosvár</td><td>Rusovce</td><td>maď. <em>Oroszvár</em></td></tr>
+    <tr><td>Verekňa</td><td>Vrakuňa</td><td>maď. <em>Vereknye</em></td></tr>
+    <tr><td>Vaškutačka</td><td>Železná studnička</td><td>maď. <em>Vaskutacska</em></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Prezývky Bratislavčanov</h3>
+
+<p><strong>Prešpuráci</strong> — praví starí rodení Bratislavčania. <strong>Paštekári</strong> (z <em>paštéta</em>) — posmešné označenie pre českých turistov, ktorí si nosili konzervy s paštétou; neskôr rozšírené na všetkých prisťahovalcov. <strong>Blaváci</strong> (zo skratky <em>Blava</em>) — nerodení obyvatelia. <strong>Cépečkári</strong> (z <em>cezpoľný</em>) — tí, čo žili v meste bez trvalého bydliska za socializmu. <strong>Plafónisti / Plafonári</strong> — dochádzajúci, ktorí prichádzali do Bratislavy len spať — pozerať na <em>plafón</em> (strop).</p>
+
+<!-- ============================== ZDROJE ============================== -->
+<h2 id="zdroje">Akademické zdroje a odporúčaná literatúra</h2>
+
+<h3>Základné diela</h3>
+
+<div class="card">
+  <h4>Konštantín Palkovič: „Reč staršej Bratislavy" (1992)</h4>
+  <p>Základná dialektologická štúdia v časopise <em>Slovenská reč</em>, roč. 57, č. 6. Založená na intenzívnom terénnom výskume medzi rokmi 1985–1988 so starými rodenými obyvateľmi. Najcitovanejší primárny zdroj fonetických a fonologických čŕt dialektu. Dostupná ako PDF z SAV.</p>
+</div>
+
+<div class="card">
+  <h4>Jozef Tancer: <em>Rozviazané jazyky</em> (Slovart, 2016)</h4>
+  <p>Kľúčové populárno-vedecké dielo. Založené na 7 rokoch výskumu a vyše 100 rozhovoroch so starými Bratislavčanmi narodenými medzi 1916 a 1933. Dokumentuje „mišmaš" trojjazyčnej reči prostredníctvom prepísaných ústnych výpovedí. Bestseller, vyšiel v dotlači. Tancer je germanista a prorektor Univerzity Komenského.</p>
+</div>
+
+<div class="card">
+  <h4>Jozef Tancer: <em>Neviditeľné mesto</em> (Kalligram, 2013)</h4>
+  <p>Pressburg/Bratislava v cestopisnej literatúre.</p>
+</div>
+
+<div class="card">
+  <h4>Daniel Luther: <em>Z Prešporku do Bratislavy</em></h4>
+  <p>Etnografická štúdia premenenia mesta a jeho identity.</p>
+</div>
+
+<h3>Ďalšie akademické zdroje</h3>
+
+<ul>
+  <li><strong>Kriegleder, W., Seidler, A., Tancer, J. (eds.):</strong> <em>Deutsche Sprache und Kultur im Raum Pressburg</em> (edition lumière, 2002)</li>
+  <li><strong>Lanstyák, I., Múcsková, G., Tancer, J. (eds.):</strong> <em>Jazyky a jazykové ideológie v kontexte viacjazyčnosti na Slovensku</em> (Univerzita Komenského, 2017)</li>
+  <li><strong>Ripka, I. (ed.):</strong> <em>Slovník slovenských nárečí</em> (Veda, zv. 1/1994, zv. 2/2005)</li>
+  <li><strong>Múcsková, G. et al.:</strong> <em>Praktická dialektológia</em> (Facultas Wien, 2012)</li>
+</ul>
+
+<h3>Kľúčoví vedci</h3>
+
+<ul>
+  <li><strong>Lucia Molnár Satinská</strong> — Jazykovedný ústav Ľ. Štúra SAV; sociolingvistka, TEDxBratislava prednáška „Ako zmizla mnohojazyčnosť z ulíc Bratislavy"; spolupracovala na TV seriáli <em>Pressburg</em> (2024).</li>
+  <li><strong>Gabriela Múcsková</strong> — Univerzita Komenského; dialektologička, špecialistka na adaptáciu germanizmov v slovenských nárečiach.</li>
+  <li><strong>Anton Habovštiak</strong> — autor základných štúdií o germanizmoch v slovenských nárečiach.</li>
+  <li><strong>Ivor Ripka</strong> — editor <em>Slovníka slovenských nárečí</em>.</li>
+</ul>
+
+<!-- ============================== ZÁCHRANA ============================== -->
+<h2 id="zachrana">Zachovávanie dialektu — kto a ako</h2>
+
+<h3>Komunitné iniciatívy</h3>
+
+<div class="card">
+  <h4>Facebook skupina „Prešpurčina ešče nezgegla!"</h4>
+  <p>Najaktívnejšia iniciatíva. Založil ju sprievodca <strong>Ivor Švihran</strong>, má vyše <strong>1 300 členov</strong>. Skupina spravuje <strong>crowdsourcový Google Sheets slovník</strong> s takmer 1 000 heslami. Názov sám je v dialekte: <em>nezgegla</em> = „nezomrela" (z prešpuráckého slovesa <em>zgegnúť</em>).</p>
+</div>
+
+<div class="card">
+  <h4>Bratislava fotogenická</h4>
+  <p>Občianske združenie vedené aktivistkou <strong>Hanou Fábry</strong>. Publikuje podrobné články o dialekte na webe <em>bratislavafotogenicka.eu</em>.</p>
+</div>
+
+<div class="card">
+  <h4>Bratislavské rožky</h4>
+  <p>Kultúrna iniciatíva dokumentujúca širšie bratislavské dedičstvo vrátane dialektu.</p>
+</div>
+
+<h3>Online slovníky</h3>
+
+<ul>
+  <li><strong>narecie.sk</strong> — „Bratislavsko-slovenský slovník"</li>
+  <li><strong>komunitnyslovnik.sk</strong> — crowdsourcová sekcia s bratislavskými heslami</li>
+  <li><strong>Google Sheets slovník</strong> FB skupiny „Prešpurčina ešče nezgegla!"</li>
+</ul>
+
+<h3>Médiá a kultúra</h3>
+
+<ul>
+  <li><strong>TV seriál <em>Pressburg</em></strong> (2024) — trojjazyčná slovensko-maďarsko-nemecká komédia, spoluautorka lingvistka Lucia Molnár Satinská</li>
+  <li><strong>Divadelná inscenácia „Akcent"</strong> — premiéra marec 2025 v Tanečnom divadle Ifjú Szivek, trojjazyčné predstavenie podľa Tancerovych <em>Rozviazaných jazykov</em></li>
+  <li>Články v <strong>Bratislavských novinách</strong>, <strong>Denníku N</strong>, <strong>SME</strong>, <strong>TASR</strong>, <strong>Emefke</strong>, <strong>Startitup</strong>, <strong>Napalete.sk</strong> a <strong>Dnes24</strong></li>
+</ul>
+
+<h3>Akademický výskum</h3>
+
+<ul>
+  <li><strong>Jazykovedný ústav Ľudovíta Štúra SAV</strong> — udržiava dialektologický výskum, ale nemá špecializovaný projekt na prešpurčinu</li>
+  <li><strong>Rakúska akadémia vied</strong> — partnerský projekt „Pozsony–Pressburg–Bratislava: Das Ende einer multiethnischen Stadt" (Koniec mnohonárodnostného mesta), rozhovory s trojjazyčnou generáciou</li>
+</ul>
+
+<div class="highlight-box">
+  <strong>Ako začať:</strong> Pridajte sa do FB skupiny „Prešpurčina ešče nezgegla!", preštudujte Google Sheets slovník, prečítajte Tancerove <em>Rozviazané jazyky</em> a vyhľadajte Palkovičov článok z roku 1992. Začnite s najčastejšou slovnou zásobou — domácnosť, jedlo, slovesá — a skúšajte ju vtkaných do bežných slovenských viet. Dialekt žije v ústach jeho hovorcov a každé zachované slovo je kúsok viacjazyčnej bratislavskej duše.
+</div>
+
+</main>
+
+<footer>
+  <p>Prešpurčina — kompletný sprievodca · Zostavené z akademických zdrojov Palkoviča, Tancera, Molnár Satinskej a komunitných iniciatív · 2026</p>
+</footer>
+
+</body>
+</html>

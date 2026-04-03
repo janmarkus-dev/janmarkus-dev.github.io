@@ -95,19 +95,30 @@ function initMobileNav() {
     });
 }
 
-/* ---- YouTube Lazy-Load Placeholders ---- */
+/* ---- Video Lazy-Load Placeholders (YouTube & Facebook) ---- */
 function initVideoPlaceholders() {
     document.querySelectorAll('.video-placeholder').forEach((placeholder) => {
         placeholder.addEventListener('click', () => {
             const container = placeholder.closest('.video-container');
+            const videoType = container.getAttribute('data-video-type') || 'youtube';
             const videoId = container.getAttribute('data-video-id');
-            if (!videoId) return;
+            const videoUrl = container.getAttribute('data-video-url');
 
             const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            
+            if (videoType === 'youtube' && videoId) {
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                iframe.title = 'YouTube video';
+            } else if (videoType === 'facebook' && videoUrl) {
+                const encodedUrl = encodeURIComponent(videoUrl);
+                iframe.src = `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=0&width=560&autoplay=1`;
+                iframe.title = 'Facebook video';
+            } else {
+                return;
+            }
+
             iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
             iframe.allowFullscreen = true;
-            iframe.title = 'YouTube video';
 
             placeholder.style.opacity = '0';
             setTimeout(() => {

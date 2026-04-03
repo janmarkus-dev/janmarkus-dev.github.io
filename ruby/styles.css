@@ -4,10 +4,10 @@
 :root {
   --bg:        #0d0d0f;
   --surface:   #131316;
-  --border:    #222228;
-  --text:      #c8c8d0;
-  --text-dim:  #5a5a6a;
-  --text-faint:#2e2e38;
+  --border:    #2a2a32;
+  --text:      #e2e2e9;
+  --text-dim:  #9494a5;
+  --text-faint:#525263;
   --accent:    #c084fc;   /* soft violet */
   --accent-2:  #7dd3fc;   /* sky blue    */
   --font-serif: 'EB Garamond', Georgia, serif;
